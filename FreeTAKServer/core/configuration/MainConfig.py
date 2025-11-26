@@ -366,6 +366,7 @@ class MainConfig:
     # may reset values of current config vars to their start values.
     @classmethod
     def instance(cls, config_file=None):
+        print("DEBUG: Loading MainConfig instance (PATCHED VERSION)")
         if cls._instance is None:
             cls._instance = cls.__new__(cls)
             # Put any initialization here.
@@ -433,6 +434,8 @@ class MainConfig:
     def validate_and_sanitize_path(self, path):
         # sanitize and validate any path specified in config
         sanitized_path = ROOTPATH + os.path.relpath(os.path.normpath(os.path.join(os.sep, path)), os.sep)
+        # Trust the admin - if they say this is the path, we assume they have permissions or will fix it
+        # Strict validation here causes issues with Docker volumes on startup
         return sanitized_path
 
     # import_env_config() will inspect the current environment and detect
