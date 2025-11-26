@@ -431,22 +431,8 @@ class MainConfig:
                         self.set(var_name, value=value)
 
     def validate_and_sanitize_path(self, path):
-
         # sanitize and validate any path specified in config
         sanitized_path = ROOTPATH + os.path.relpath(os.path.normpath(os.path.join(os.sep, path)), os.sep)
-
-        # Check if path exists and is writable
-        if os.path.exists(sanitized_path):
-            if not os.access(sanitized_path, os.W_OK):
-                print(f"Cannot access configuration path (not writable): {sanitized_path}")
-                sys.exit(1)
-        # If path does not exist, check if parent directory is writable to allow creation
-        else:
-            parent_dir = os.path.dirname(sanitized_path)
-            if not os.access(parent_dir, os.W_OK):
-                print(f"Cannot access configuration path (parent not writable): {sanitized_path}")
-                sys.exit(1)
-
         return sanitized_path
 
     # import_env_config() will inspect the current environment and detect

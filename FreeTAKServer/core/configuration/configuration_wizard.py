@@ -131,8 +131,8 @@ def valid_and_safe_path(path):
     path = Path(path).resolve()
     if not path.is_absolute():
         raise ValueError("Input must be an absolute path")
-    sanitized_path = path.relative_to(path.parent)
-    sanitized_parent = path.parent.relative_to(path.parent)
+    sanitized_path = path
+    sanitized_parent = path.parent
     return (
         (
             sanitized_path.exists()
